@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Explorer</title>
+    <meta name="description" content="Tech Explorer bridges the gap between education and industry — live skill demand, job roles and personalized learning roadmaps.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styler.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">TE</div>
+            <span>Tech Explorer</span>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#explorerHome">Home</a>
+            <a href="#skills">Skills</a>
+            <a href="auth.html?next=skillmatch.html">Skill Match</a>
+            <a href="auth.html?next=skillmatch.html">Log in</a>
+            <a href="auth.html?next=skillmatch.html#signup">Sign up</a>
+            <a href="#jobs">Jobs</a>
+            <a href="#insights">Insights</a>
+        </div>
+
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="explorerHome">
+        <div class="hero-content">
+            <div class="hero-badge"> INDUSTRY SKILL PLATFORM</div>
+
+            <h1>Bridge the Gap Between <span>Skills & Industry</span></h1>
+
+            <p>
+                Discover the skills industries need, explore career opportunities,
+                and become job-ready — all in one place.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="exploreSkills()">Explore Skills →</button>
+                <button class="secondary-btn" onclick="exploreJobs()">Explore Jobs</button>
+                <a class="secondary-btn" href="auth.html?next=skillmatch.html">Skill Match ↗</a>
+            </div>
+
+            <div class="hero-chart">
+                <div class="chart-header">
+                    <div>
+                        <small>INDUSTRY DEMAND</small>
+                        <h3>Most Requested Skills</h3>
+                    </div>
+                    <span class="demo-badge">● CONNECTING TO MARKET DATA</span>
+                </div>
+                <p id="marketSkillsLoading" class="market-chart-message">Loading current job listing data...</p>
+            </div>
+        </div>
+
+        <!-- Circle chart in hero free space -->
+        <div class="skill-gauge-card">
+            <div class="gauge-header">
+                <span>SKILL DEMAND</span>
+                <span class="gauge-status">● CONNECTING TO MARKET DATA</span>
+            </div>
+
+            <div class="gauge">
+                <canvas id="skillsChart" width="400" height="400"></canvas>
+            </div>
+
+            <div class="gauge-legend" id="gaugeLegend"></div>
+
+            <div class="gauge-footer">
+                <span class="status-dot"></span>
+                <span>Skill matches in fetched job listings</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="stats-section">
+        <div class="stat-box reveal">
+            <strong>1250+</strong>
+            <span>In-Demand Skills</span>
+        </div>
+        <div class="stat-box reveal">
+            <strong>850+</strong>
+            <span>Job Roles</span>
+        </div>
+        <div class="stat-box reveal">
+            <strong>3400+</strong>
+            <span>Learning Programs</span>
+        </div>
+         <div class="stat-box reveal">
+            <strong>50,000+</strong>
+            <span>Active Learners</span>
+        </div>
+        <div class="stat-box reveal">
+            <strong>1</strong>
+            <span>Career Platform</span>
+        </div>
+    </section>
+
+    <!-- ================= JOBS ================= -->
+    <section class="section jobs-section reveal" id="jobs">
+        <div class="section-heading">
+            <span class="section-tag">CAREER OPPORTUNITIES</span>
+            <h2>Explore Job Roles</h2>
+            <p>Discover job roles, the skills behind them, and the exact path to each career.</p>
+        </div>
+        <button></button>
+
+        <div class="program-search">
+            <select id="skillSelect">
+                <option value="">Select a Skill</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="sql">SQL</option>
+                <option value="cloud">Cloud</option>
+                <option value="data analytics">Data Analytics</option>
+                <option value="machine learning">Machine Learning</option>
+                <option value="cyber security">Cyber Security</option>
+            </select>
+            <button class="primary-btn" onclick="findSkills()">Find Job Roles →</button>
+        </div>
+
+        <div id="jobsContainer" class="cards"></div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="section reveal" id="skills">
+        <div class="section-heading">
+            <span class="section-tag">EXPLORE SKILLS</span>
+            <h2>Skills That Industry Needs</h2>
+            <p>The technologies employers are asking for right now, served live from our data engine.</p>
+        </div>
+
+        <p id="message" class="connection-message">Connecting to Java backend...</p>
+        <div id="skillsContainer" class="cards"></div>
+    </section>
+
+    <!-- ================= INSIGHTS ================= -->
+    <section class="insights-section reveal" id="insights">
+        <div class="insights-container">
+            <div class="section-heading">
+                <span class="section-tag">CAREER INSIGHTS</span>
+                <h2>Skills Shaping the Tech Job Market</h2>
+                <p>Demand calculated from job listings loaded by the Java market-data API.</p>
+            </div>
+
+            <div class="insight-dashboard">
+                <div class="role-demand-card">
+                    <div class="role-card-header">
+                        <div>
+                            <span>ROLE DEMAND</span>
+                            <h3>Emerging Job Roles</h3>
+                        </div>
+                        <div class="live-indicator">
+                            <span></span><span id="roleDemandStatus">CONNECTING</span>
+                        </div>
+                    </div>
+                    <p class="market-chart-message demand-loading">Loading current job listing data...</p>
+                </div>
+            </div>
+
+            <div class="data-note">
+                <strong>Data note:</strong> Skill percentages are shares of all matched skill-listing counts in the displayed categories and add up to 100% when any tracked skills match. A listing may match multiple skills, so these are not shares of unique jobs, confirmed hires, or the entire technology labor market. Role percentages are shares of matched role counts and add up to 100% when roles match; role categories may overlap. The Arbeitnow feed mainly represents Germany and Europe. The API requests up to 500 listings and reports the technology-related sample used.
+            </div>
+
+            <p class="source-text" id="marketDataStatus">Loading technology demand from the Java API...</p>
+            <a class="source-text" id="marketDataAttribution" href="https://www.arbeitnow.com/" target="_blank" rel="noopener noreferrer" hidden></a>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon">TE</div>
+                <strong>Tech Explorer</strong>
+            </div>
+            <p>⚛️ Quantumania ⚛️</p>
+            <span> Bridging Education & Industry</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

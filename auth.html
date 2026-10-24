@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sign in or create an account to continue to Skill Match.">
+    <title>Sign in | Skill Match</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-page">
+    <main class="auth-shell">
+        <a class="auth-brand" href="index.html"><span class="logo-icon">TE</span><span>Tech Explorer</span></a>
+        <section class="auth-card">
+            <p class="auth-eyebrow">YOUR CAREER WORKSPACE</p>
+            <h1 id="authHeading">Welcome back</h1>
+            <p class="auth-subtitle">Sign in to continue to Skill Match and pick up where you left off.</p>
+
+            <div class="auth-tabs" role="tablist" aria-label="Account access">
+                <button id="loginTab" class="selected" type="button" role="tab" aria-selected="true">Log in</button>
+                <button id="signupTab" type="button" role="tab" aria-selected="false">Sign up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <label for="loginIdentifier">Email or mobile number</label>
+                <input id="loginIdentifier" autocomplete="username" required placeholder="name@example.com or +14155550123">
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" type="password" autocomplete="current-password" required minlength="10">
+                <button class="auth-primary" type="submit">Log in</button>
+            </form>
+
+            <form id="signupForm" class="auth-form" hidden>
+                <div id="signupIdentityStep">
+                    <label for="signupIdentifier">Email or mobile number</label>
+                    <input id="signupIdentifier" autocomplete="email" required placeholder="name@example.com or +14155550123">
+                    <p class="auth-hint">Enter your email address or mobile number with country code. We’ll send a one-time verification code.</p>
+                    <button id="sendOtpButton" class="auth-primary" type="button">Send verification code</button>
+                </div>
+                <div id="signupVerifyStep" hidden>
+                    <p id="otpSentMessage" class="auth-notice"></p>
+                    <label for="signupCode">6-digit verification code</label>
+                    <input id="signupCode" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required disabled>
+                    <button id="verifyOtpButton" class="auth-primary" type="button">Verify code</button>
+                    <button id="changeIdentifierButton" class="auth-secondary" type="button">Use a different email or number</button>
+                </div>
+                <div id="signupPasswordStep" hidden>
+                    <p class="auth-notice">Contact verified. Create your account password.</p>
+                    <label for="signupName">Your name</label>
+                    <input id="signupName" autocomplete="name" required maxlength="120" disabled>
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" type="password" autocomplete="new-password" required minlength="10" maxlength="256" disabled>
+                    <p class="auth-hint">Use at least 10 characters.</p>
+                    <button class="auth-primary" type="submit">Create account</button>
+                </div>
+            </form>
+
+            <div class="auth-divider"><span>or continue with</span></div>
+            <div id="googleButton" class="google-button"></div>
+            <p id="googleUnavailable" class="auth-hint" hidden>Google sign-in needs an OAuth client ID configured by the server administrator.</p>
+            <div id="authMessage" class="auth-message" role="status" aria-live="polite"></div>
+            <a class="auth-back" href="index.html">← Back to Tech Explorer</a>
+        </section>
+        <p class="auth-footer">Your account, progress and Skill Match history are stored in the app’s SQL database.</p>
+    </main>
+    <script src="auth.js" defer></script>
+</body>
+</html>

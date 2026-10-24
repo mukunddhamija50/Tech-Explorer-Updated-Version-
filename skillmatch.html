@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Match | Tech Explorer</title>
+    <meta name="description" content="Build your resume, find your company fit, and prepare for interviews with Skill Match.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styler.css">
+    <style>
+        body{background:#f7f7fd;color:#19182e}
+        #skillmatchAuthGate{width:min(calc(100% - 32px),900px);max-width:900px;margin:14vh auto;padding:0;color:#19182e}
+        #skillmatchAuthGate>div{padding:32px;border:1px solid #e8e6f3;border-radius:16px;background:#fff;box-shadow:0 12px 32px rgba(34,31,76,.07)}
+        #skillmatchAuthGate h2{margin:0 0 8px;color:#19182e;font-size:24px}
+        #skillmatchAuthGate p{color:#55556a;font-size:14px}
+        #skillmatchAuthGate .gate-actions{display:flex;gap:10px;margin-top:20px}
+        #skillmatchAuthGate .btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 18px;border:0;border-radius:9px;background:#635bff;color:#fff;font:600 14px system-ui,sans-serif;text-decoration:none;cursor:pointer}
+        #skillmatchAuthGate .btn.ghost{border:1px solid #e8e6f3;background:#fff;color:#514c7a}
+        #skillmatchAuthGate[hidden],#skillmatchApp[hidden]{display:none!important}
+        #skillmatchFileNotice{max-width:900px;margin:20px auto;padding:16px;border:1px solid #e8e6f3;border-radius:12px;background:#fff;color:#514c7a;line-height:1.6}
+        #skillmatchApp .sm-account{display:flex;align-items:center;gap:12px;margin-left:auto}
+        #skillmatchApp .account-history-item small{display:block;margin-top:5px}
+    </style>
+</head>
+<body>
+    <div id="skillmatchAuthGate" class="wrap">
+        <div><h2>Checking your Skill Match account…</h2>
+            <p id="skillmatchFileNotice">If this message stays on screen, open <strong>C:\Experiment</strong> in File Explorer and double-click <strong>Start SkillMatch.bat</strong>. Keep the server window open, then refresh this page.</p>
+            <div class="gate-actions">
+                <a class="btn" href="auth.html?next=skillmatch.html">Log in</a>
+                <a class="btn ghost" href="auth.html?next=skillmatch.html#signup">Create account</a>
+            </div>
+        </div>
+    </div>
+    <div id="skillmatchApp" hidden>
+        <div class="wrap">
+            <header class="sm-header">
+                <a class="logo" href="index.html"><span class="logo-mark">TE</span><span class="logo-name">Tech Explorer</span><span class="logo-divider"></span><span class="logo-product">SkillMatch</span></a>
+                <div class="tagline">Your skills. Your next opportunity.</div>
+                <div class="sm-account"><span id="signedInUser"></span><button class="btn small ghost" onclick="logoutSkillMatch()">Log out</button></div>
+            </header>
+
+            <div id="skillsbar" class="card skills-bar" style="padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <span class="muted">Your skills:</span>
+                <span id="myskills" class="muted"><i>none yet — scan your resume or add manually</i></span>
+                <button class="btn small ghost" onclick="go('scan')">Scan resume</button>
+                <button class="btn small ghost" onclick="showSkillPicker()">Add manually</button>
+            </div>
+
+            <nav class="sm-nav">
+                <button data-tab="home" class="active" onclick="go('home')">🏠 Home</button>
+                <button data-tab="maker" onclick="go('maker')">📄 Resume Maker</button>
+                <button data-tab="scan" onclick="go('scan')">🔍 Resume Scanner</button>
+                <button data-tab="jobs" onclick="go('jobs')">⚡ Live Jobs</button>
+                <button data-tab="match" onclick="go('match')">🎯 Company Match</button>
+                <button data-tab="tests" onclick="go('tests')">🎤 Interview Preparation</button>
+            </nav>
+
+            <section id="sm-home" class="active">
+                <div class="sm-hero">
+                    <div class="sm-hero-copy">
+                        <span class="hero-badge">CAREER READINESS PLATFORM</span>
+                        <h1>Turn your <span>skills into</span><br>your next opportunity.</h1>
+                        <p>Build a stronger resume, see how your skills align with companies, and practice for interviews at your own pace.</p>
+                        <div class="hero-actions">
+                            <button class="btn" onclick="go('maker')">Build your resume <span aria-hidden="true">→</span></button>
+                            <button class="btn ghost" onclick="go('scan')">Scan a resume</button>
+                            <button class="btn alt" onclick="go('tests')">Interview Preparation <span aria-hidden="true">→</span></button>
+                        </div>
+                    </div>
+                    <div class="hero-dashboard">
+                        <div class="dashboard-top"><span>YOUR CAREER TOOLKIT</span><span class="live-dot">● LIVE DATA</span></div>
+                        <div class="dashboard-feature"><span class="feature-icon purple">✦</span><div><b>Resume readiness</b><small>Improve ATS clarity and profile links</small></div></div>
+                        <div class="dashboard-feature"><span class="feature-icon blue">↗</span><div><b>Company alignment</b><small>Explore skill fit across 500 companies</small></div></div>
+                        <div class="dashboard-feature"><span class="feature-icon green">✓</span><div><b>Interview Preparation</b><small>Four levels · original question sets</small></div></div>
+                        <a href="/docs" target="_blank" rel="noopener" class="dashboard-link">Explore the API <span>↗</span></a>
+                    </div>
+                </div>
+                <div class="home-stats">
+                    <button class="home-stat" onclick="go('maker')"><strong>01</strong><span>Build your resume</span><small>From your experience or skill assessments</small></button>
+                    <button class="home-stat" onclick="go('scan')"><strong>02</strong><span>Check ATS readiness</span><small>Find skills, contact info and profile links</small></button>
+                    <button class="home-stat" onclick="go('match')"><strong>03</strong><span>Find your company fit</span><small>Get a personalized skills roadmap</small></button>
+                    <button class="home-stat" onclick="go('tests')"><strong>04</strong><span>Interview Preparation</span><small>Choose a language and difficulty level</small></button>
+                </div>
+                <div class="card" id="continueCard" hidden>
+                    <h2>Continue where you left off</h2>
+                    <p id="continueMessage" class="muted"></p>
+                    <button id="continueButton" class="btn" type="button">Continue</button>
+                </div>
+                <div class="card">
+                    <h2>Your recent activity</h2>
+                    <p class="sub">Your resume, assessment and career activity is saved to your account.</p>
+                    <div id="accountHistory"><p class="muted">Loading your history…</p></div>
+                </div>
+            </section>
+
+            <section id="maker">
+                <div class="card">
+                    <h2>AI Resume Maker</h2>
+                    <p class="sub">Create a resume with your own skills, or prove language skills through a separate assessment flow. Only passed assessments are shown as assessed.</p>
+                    <div class="maker-mode-tabs">
+                        <button class="maker-mode active" id="makerStandardTab" onclick="setMakerMode('standard')">Build from my details</button>
+                        <button class="maker-mode" id="makerAssessmentTab" onclick="setMakerMode('assessment')">Build with skill assessments</button>
+                    </div>
+                    <div class="row">
+                        <div><label>Full name *</label><input id="m_name" placeholder="Mukund Dhamija"></div>
+                        <div><label>Email</label><input id="m_email" placeholder="you@gmail.com"></div>
+                        <div><label>Phone</label><input id="m_phone" placeholder="+91 98xxxxxx10"></div>
+                    </div>
+                    <div class="row">
+                        <div><label for="m_linkedin">LinkedIn profile URL</label><input id="m_linkedin" type="url" placeholder="https://linkedin.com/in/your-profile"></div>
+                        <div><label for="m_github">GitHub profile URL</label><input id="m_github" type="url" placeholder="https://github.com/your-username"></div>
+                    </div>
+                    <div id="standardResumeFields">
+                        <label>Target role</label>
+                        <select id="m_role"><option>Backend Developer</option><option>Frontend Developer</option><option>Full Stack Developer</option><option>Data Analyst</option><option>Machine Learning Engineer</option><option>AI &amp; ML Engineer</option><option>Cyber Security Expert</option><option>DevOps Engineer</option><option>Mobile Developer</option></select>
+                        <label>Skills (comma separated)</label>
+                        <input id="m_skills" placeholder="Java, SQL, Docker">
+                        <label>Work experience</label><div id="m_exp"></div>
+                        <button class="btn small ghost" onclick="addExp()">+ Add experience</button>
+                        <label>Projects</label><div id="m_proj"></div>
+                        <button class="btn small ghost" onclick="addProj()">+ Add project</button>
+                        <label>Education</label><div id="m_edu"></div>
+                        <button class="btn small ghost" onclick="addEdu()">+ Add education</button>
+                        <label>Anything else to mine for skills / achievements (raw text)</label>
+                        <textarea id="m_extra" placeholder="Paste old resume, LinkedIn about section, hackathon wins…"></textarea>
+                        <br><button class="btn" onclick="makeResume()">✨ Generate resume</button>
+                    </div>
+                    <div id="assessmentResumeFields" hidden>
+                        <div class="assessment-intro"><span class="feature-icon purple">✓</span><div><b>Resume skill assessment</b><p class="muted">Choose 10 to 100 questions. Score 75% or higher to add that skill to your resume. Separate from interview preparation.</p></div></div>
+                        <label for="m_assessment_role">Target role</label>
+                        <select id="m_assessment_role"><option>Backend Developer</option><option>Frontend Developer</option><option>Full Stack Developer</option><option>Data Analyst</option><option>Machine Learning Engineer</option><option>AI &amp; ML Engineer</option><option>Cyber Security Expert</option><option>DevOps Engineer</option><option>Mobile Developer</option></select>
+                        <div class="row">
+                            <div><label for="resumeTestSkill">Language or technology</label><select id="resumeTestSkill"></select></div>
+                            <div><label for="resumeTestLevel">Assessment level</label><select id="resumeTestLevel"><option value="1">Level 1 · Easy foundations</option><option value="2">Level 2 · Average · Tier 3 practice</option><option value="3">Level 3 · Hard · Tier 2 practice</option><option value="4">Level 4 · Extreme · Tier 1 practice</option></select></div>
+                            <div><label for="resumeQuestionCount">Number of questions</label><select id="resumeQuestionCount"><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="50">50 questions</option><option value="60">60 questions</option><option value="70">70 questions</option><option value="80">80 questions</option><option value="90">90 questions</option><option value="100" selected>100 questions</option></select></div>
+                        </div>
+                        <button class="btn" onclick="startResumeAssessment()">Start resume assessment →</button>
+                        <button class="btn small ghost" onclick="resetResumeAssessment()">Start another assessment</button>
+                        <div id="resumeAssessmentSummary" class="assessment-summary"></div>
+                        <div id="resumeQuiz"></div>
+                        <button id="generateAssessedResume" class="btn alt" onclick="makeResume(true)" hidden>Generate assessed resume</button>
+                    </div>
+                </div>
+                <div id="m_out"></div>
+            </section>
+
+            <section id="scan">
+                <div class="card">
+                    <h2>Resume Scanner</h2>
+                    <p class="sub">Upload a text-based PDF to extract ATS skills, education, contact details and clickable professional profile links.</p>
+                    <label for="s_file">Resume PDF</label><input id="s_file" type="file" accept="application/pdf,.pdf" onchange="showSelectedPdf()">
+                    <p id="s_file_name" class="muted">No PDF selected.</p>
+                    <br><button class="btn" onclick="scanResume()">🔍 Analyze PDF</button>
+                </div>
+                <div id="s_out"></div>
+            </section>
+
+            <section id="sm-jobs">
+                <div class="card">
+                    <h2>Live Job Feed <span id="src_badge" class="chip"></span></h2>
+                    <p class="sub">Search live listings from public job APIs. When listings are unavailable, sample roles from the 500-company catalog are shown instead.</p>
+                    <div class="row"><div style="flex:3"><label for="j_q">Search jobs</label><input id="j_q" type="search" aria-label="Search jobs" placeholder="Role, company, location, or skill"></div><div style="flex:0"><button class="btn" onclick="loadSkillMatchJobs()">Search</button></div></div>
+                    <br><div id="j_out"><div class="gate">Click <b>Search</b> to fetch jobs.</div></div>
+                </div>
+            </section>
+
+            <section id="match">
+                <div class="card">
+                    <h2>Company Match & Skill Gap</h2>
+                    <p class="sub">Search 500 company profiles ranked by estimated skill fit. See which skills to develop and free resources to use.</p>
+                    <label for="mt_q">Search matched companies</label><input id="mt_q" type="search" aria-label="Search matched companies" placeholder="Company, description, or skill">
+                    <button class="btn" onclick="matchCompanies()">🎯 Match me with companies</button>
+                </div>
+                <div id="mt_out"></div>
+            </section>
+
+            <section id="tests">
+                <div class="card">
+                    <h2>Interview Preparation</h2>
+                    <p class="sub">Choose 20 to 100 questions for each language and difficulty level. Level 4 is open-ended: write an approach, pseudocode, or code instead of choosing options. Company-labeled questions are based on topics from the interview PDFs you provided. Review worked solutions after submitting; these are practice materials, not official company questions.</p>
+                    <div class="level-guide">
+                        <div><b>Level 1 · Easy</b><span>Foundations and college basics</span></div>
+                        <div><b>Level 2 · Average</b><span>Tier 3 preparation</span></div>
+                        <div><b>Level 3 · Hard</b><span>Tier 2 practice · TCS, Infosys</span></div>
+                        <div><b>Level 4 · Extreme</b><span>Tier 1 practice · Google, Amazon, Microsoft</span></div>
+                    </div>
+                    <div class="test-controls">
+                        <div><label for="practiceSkill">Language or technology</label><select id="practiceSkill"></select></div>
+                        <div><label for="practiceLevel">Difficulty level</label><select id="practiceLevel"><option value="1">Level 1 · Easy</option><option value="2">Level 2 · Average</option><option value="3">Level 3 · Hard</option><option value="4">Level 4 · Extreme</option></select></div>
+                        <div><label for="practiceQuestionCount">Number of questions</label><select id="practiceQuestionCount"><option value="20" selected>20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="50">50 questions</option><option value="60">60 questions</option><option value="70">70 questions</option><option value="80">80 questions</option><option value="90">90 questions</option><option value="100">100 questions</option></select></div>
+                        <button class="btn" onclick="startSelectedTest()">Start practice →</button>
+                    </div>
+                    <div id="t_list"></div>
+                </div>
+                <div id="t_out"></div>
+            </section>
+        </div>
+        <div id="toast"></div>
+    </div>
+
+    <script>
+        const localHosts = ['localhost', '127.0.0.1'];
+        const needsLocalServer = location.protocol === 'file:'
+            || (localHosts.includes(location.hostname) && location.port !== '8000');
+        window.skillMatchServerBootstrapPending = needsLocalServer;
+        if (needsLocalServer) {
+            const localPage = new URL('http://127.0.0.1:8000/skillmatch.html');
+            localPage.search = location.search;
+            localPage.hash = location.hash;
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 3000);
+            fetch('http://127.0.0.1:8000/api/health', {
+                cache: 'no-store',
+                signal: controller.signal
+            }).then(response => {
+                if (!response.ok) throw new Error(`Local server returned HTTP ${response.status}`);
+                location.replace(localPage.href);
+            }).catch(() => {
+                document.getElementById('skillmatchFileNotice').hidden = false;
+            }).finally(() => clearTimeout(timeout));
+        }
+    </script>
+    <script src="scriptr.js"></script>
+</body>
+</html>
